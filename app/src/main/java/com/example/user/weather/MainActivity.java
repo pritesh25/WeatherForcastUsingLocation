@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.weather.model.Weather;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -112,6 +114,101 @@ public class MainActivity extends AppCompatActivity {
                         try
                         {
                             Log.d(TAG,"result = "+result);
+
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            JsonObject coord    = result.getAsJsonObject("coord");
+                            Log.d(TAG,"coord = "+coord);
+
+                            String lon = String.valueOf(coord.getAsJsonPrimitive("lon"));
+                            String lat = String.valueOf(coord.getAsJsonPrimitive("lat"));
+
+                            Log.d(TAG,"lon = "+lon);
+                            Log.d(TAG,"lat = "+lat);
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            JsonArray weather    = result.getAsJsonArray("weather");
+
+                            for(int i=0;i<weather.size();i++)
+                            {
+                                JsonElement object =  weather.get(i);
+                                Log.d(TAG,"weather at "+i+" = "+weather.get(i));
+
+                                Log.d(TAG,"id           = "+object.getAsJsonObject().getAsJsonPrimitive("id"));
+                                Log.d(TAG,"main         = "+object.getAsJsonObject().getAsJsonPrimitive("main"));
+                                Log.d(TAG,"description  = "+object.getAsJsonObject().getAsJsonPrimitive("description"));
+                                Log.d(TAG,"icon         = "+object.getAsJsonObject().getAsJsonPrimitive("icon"));
+
+                            }
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            Log.d(TAG,"base = "+result.getAsJsonPrimitive("base"));
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            JsonObject main    = result.getAsJsonObject("main");
+                            Log.d(TAG,"main = "+main);
+
+                            String temp = String.valueOf(main.getAsJsonPrimitive("temp"));
+                            String pressure = String.valueOf(main.getAsJsonPrimitive("pressure"));
+                            String humidity = String.valueOf(main.getAsJsonPrimitive("humidity"));
+                            String temp_min = String.valueOf(main.getAsJsonPrimitive("temp_min"));
+                            String temp_max = String.valueOf(main.getAsJsonPrimitive("temp_max"));
+
+                            Log.d(TAG,"temp     = "+temp);
+                            Log.d(TAG,"pressure = "+pressure);
+                            Log.d(TAG,"humidity = "+humidity);
+                            Log.d(TAG,"temp_min = "+temp_min);
+                            Log.d(TAG,"temp_max = "+temp_max);
+
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            Log.d(TAG,"visibility = "+result.getAsJsonPrimitive("visibility"));
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            JsonObject wind    = result.getAsJsonObject("wind");
+                            Log.d(TAG,"wind = "+wind);
+
+                            String speed = String.valueOf(wind.getAsJsonPrimitive("speed"));
+                            String deg  = String.valueOf(wind.getAsJsonPrimitive("deg"));
+
+                            Log.d(TAG,"speed    = "+speed);
+                            Log.d(TAG,"deg      = "+deg);
+
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            JsonObject clouds    = result.getAsJsonObject("clouds");
+                            Log.d(TAG,"clouds = "+clouds);
+                            String all = String.valueOf(clouds.getAsJsonPrimitive("all"));
+                            Log.d(TAG,"all    = "+all);
+                            Log.d(TAG,"*************************************");
+                            Log.d(TAG,"dt = "+result.getAsJsonPrimitive("dt"));
+
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            JsonObject sys    = result.getAsJsonObject("sys");
+                            Log.d(TAG,"sys = "+sys);
+
+                            String type     = String.valueOf(sys.getAsJsonPrimitive("type"));
+                            String id       = String.valueOf(sys.getAsJsonPrimitive("id"));
+                            String message  = String.valueOf(sys.getAsJsonPrimitive("message"));
+                            String country  = String.valueOf(sys.getAsJsonPrimitive("country"));
+                            String sunrise  = String.valueOf(sys.getAsJsonPrimitive("sunrise"));
+                            String sunset   = String.valueOf(sys.getAsJsonPrimitive("sunset"));
+
+
+                            Log.d(TAG,"type     = "+type);
+                            Log.d(TAG,"id       = "+id);
+                            Log.d(TAG,"message  = "+message);
+                            Log.d(TAG,"country  = "+country);
+                            Log.d(TAG,"sunrise  = "+sunrise);
+                            Log.d(TAG,"sunset   = "+sunset);
+                            /****************************************************/
+                            Log.d(TAG,"*************************************");
+                            Log.d(TAG,"id   = "+result.getAsJsonPrimitive("id"));
+                            Log.d(TAG,"name = "+result.getAsJsonPrimitive("name"));
+                            Log.d(TAG,"cod  = "+result.getAsJsonPrimitive("cod"));
+
+
                         }
                         catch (Exception e1)
                         {
