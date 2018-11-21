@@ -1,30 +1,20 @@
 package com.example.user.weather;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.weather.model.Weather;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import org.json.JSONException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        callIonWebService();
+
+        /*
         String city = "London,UK";
 
         cityText    = (TextView) findViewById(R.id.cityText);
@@ -63,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         JSONWeatherTask task = new JSONWeatherTask();
         task.execute(new String[]{city});
+        */
     }
 
     private class JSONWeatherTask extends AsyncTask<String, Void, Weather> {
@@ -104,5 +98,27 @@ public class MainActivity extends AppCompatActivity {
             windDeg.setText("" + weather.wind.getDeg() + "�");
 
         }
+    }
+
+    private void callIonWebService()
+    {
+        Ion.with(getApplicationContext())
+                .load("http://api.openweathermap.org/data/2.5/weather?q="+"Mumbai,In"+"&appid=82af4295b345889c281640e43c8d0862")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        try
+                        {
+                            Log.d(TAG,"result = "+result);
+                        }
+                        catch (Exception e1)
+                        {
+                            Log.d(TAG,"catch error = "+e1.getMessage());
+                        }
+
+                    }
+                });
     }
 }
