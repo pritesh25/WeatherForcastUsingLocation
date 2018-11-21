@@ -37,13 +37,17 @@ public class MainActivity extends AppCompatActivity {
     //1983
 
 
+    String imageUrlHead      = "http://openweathermap.org/img/w/";
+    String imageUrlBody      = "";
+    String imageUrlExtension = ".png";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        imgView     = findViewById(R.id.condIcon);
         callIonWebService();
-
         /*
         String city = "London,UK";
 
@@ -138,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG,"main         = "+object.getAsJsonObject().getAsJsonPrimitive("main"));
                                 Log.d(TAG,"description  = "+object.getAsJsonObject().getAsJsonPrimitive("description"));
                                 Log.d(TAG,"icon         = "+object.getAsJsonObject().getAsJsonPrimitive("icon"));
+                                imageUrlBody                 =  object.getAsJsonObject().getAsJsonPrimitive("icon").getAsString();
 
                             }
                             /****************************************************/
@@ -208,6 +213,12 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG,"name = "+result.getAsJsonPrimitive("name"));
                             Log.d(TAG,"cod  = "+result.getAsJsonPrimitive("cod"));
 
+                            /****************************************************/
+                            Log.d(TAG,"full icon  = "+imageUrlHead+imageUrlBody+imageUrlExtension);
+                            Ion.with(imgView)
+                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .error(R.drawable.ic_launcher_foreground)
+                                    .load(imageUrlHead+imageUrlBody+imageUrlExtension);
 
                         }
                         catch (Exception e1)
@@ -217,5 +228,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
     }
 }
