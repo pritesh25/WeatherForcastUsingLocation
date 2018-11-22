@@ -11,6 +11,11 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -123,8 +128,20 @@ public class MainActivity extends AppCompatActivity {
                             String id       = String.valueOf(sys.getAsJsonPrimitive("id"));
                             String message  = String.valueOf(sys.getAsJsonPrimitive("message"));
                             String country  = String.valueOf(sys.getAsJsonPrimitive("country"));
-                            String sunrise  = String.valueOf(sys.getAsJsonPrimitive("sunrise"));
-                            String sunset   = String.valueOf(sys.getAsJsonPrimitive("sunset"));
+                            String sunrise  = String.valueOf(sys.getAsJsonPrimitive("sunrise").getAsInt());
+                            String sunset   = String.valueOf(sys.getAsJsonPrimitive("sunset").getAsInt());
+
+                            try {
+
+                                Date date = new Date(sunrise);
+                                DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                                format.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+                                Log.d(TAG,"sunrise time = "+format.format(date));
+                            }
+                            catch (Exception e2)
+                            {
+                                Log.d(TAG,"date error = "+e2.getMessage());
+                            }
 
 
                             Log.d(TAG,"type     = "+type);
