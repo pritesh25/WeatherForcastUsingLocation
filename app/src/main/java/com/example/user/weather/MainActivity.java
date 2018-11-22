@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG,"date error = "+e2.getMessage());
                             }
 
-
                             Log.d(TAG,"type     = "+type);
                             Log.d(TAG,"id       = "+id);
                             Log.d(TAG,"message  = "+message);
